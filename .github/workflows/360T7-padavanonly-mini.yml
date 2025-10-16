@@ -133,7 +133,7 @@ jobs:
          body: |
              Gateway：192.168.50.1
              Password：password
-             Application：mwan3，ramfree，ua2f
+             Application：ramfree，ua2f
          files: ${{ env.FIRMWARE }}/*
 
     - name: Delete older releases
