@@ -102,13 +102,13 @@ uci commit network
 # /etc/config/wireless
 uci set wireless.default_MT7981_1_1.ssid='hwp'
 uci set wireless.default_MT7981_1_1.encryption='sae-mixed'
-uci set wireless.default_MT7981_1_1.key='13595714161'
+uci set wireless.default_MT7981_1_1.key='password'
 uci del wireless.MT7981_1_2.noscan
 uci set wireless.MT7981_1_2.channel='auto'
 uci set wireless.default_MT7981_1_2.ssid='hwp-5G'
 uci set wireless.default_MT7981_1_2.steeringthresold='-85'
 uci set wireless.default_MT7981_1_2.encryption='sae-mixed'
-uci set wireless.default_MT7981_1_2.key='13595714161'
+uci set wireless.default_MT7981_1_2.key='password'
 uci commit wireless
 
 /etc/init.d/network restart
