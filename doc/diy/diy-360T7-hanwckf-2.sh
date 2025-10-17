@@ -64,35 +64,41 @@ sed -i 's/192.168.1.1/192.168.50.1/g' package/base-files/files/bin/config_genera
 
 
 #追加自定义配置
-cat << 'EOF' > package/base-files/files/etc/uci-defaults/firstboot
+cat << 'EOF' >> package/base-files/files/etc/uci-defaults/firstboot
+
 # /etc/config/dhcp
-uci del dhcp.wan
-uci del dhcp.lan.ra_slaac
-uci del dhcp.lan.dhcpv6
-uci set dhcp.lan.ignore='1'
-uci set dhcp.lan.ra='hybrid'
+# uci del dhcp.wan
+# uci del dhcp.lan.ra_slaac
+# uci del dhcp.lan.dhcpv6
+# uci set dhcp.lan.ignore='1'
+# uci set dhcp.lan.ra='hybrid'
+
 # /etc/config/firewall
-uci del firewall.cfg02dc81.network
-uci add_list firewall.cfg02dc81.network='lan'
-uci del firewall.cfg03dc81.network
-uci add_list firewall.cfg03dc81.network='wan6'
-uci del firewall.cfg03dc81.network
-uci del firewall.cfg02dc81.network
-uci add_list firewall.cfg02dc81.network='lan'
+# uci del firewall.cfg02dc81.network
+# uci add_list firewall.cfg02dc81.network='lan'
+# uci del firewall.cfg03dc81.network
+# uci add_list firewall.cfg03dc81.network='wan6'
+# uci del firewall.cfg03dc81.network
+# uci del firewall.cfg02dc81.network
+# uci add_list firewall.cfg02dc81.network='lan'
+
 # /etc/config/network
-uci del network.wan
-uci set network.globals.packet_steering='1'
-uci del network.wan6
-uci del network.lan.ipaddr
-uci del network.lan.netmask
-uci del network.lan.ip6assign
-uci set network.lan.proto='dhcp'
+# uci del network.wan
+# uci set network.globals.packet_steering='1'
+# uci del network.wan6
+# uci del network.lan.ipaddr
+# uci del network.lan.netmask
+# uci del network.lan.ip6assign
+# uci set network.lan.proto='dhcp'
 uci del network.globals.ula_prefix
-uci del network.cfg030f15.ports
-uci add_list network.cfg030f15.ports='lan1'
-uci add_list network.cfg030f15.ports='lan2'
-uci add_list network.cfg030f15.ports='lan3'
-uci add_list network.cfg030f15.ports='wan'
+uci commit network
+
+# uci del network.cfg030f15.ports
+# uci add_list network.cfg030f15.ports='lan1'
+# uci add_list network.cfg030f15.ports='lan2'
+# uci add_list network.cfg030f15.ports='lan3'
+# uci add_list network.cfg030f15.ports='wan'
+
 # /etc/config/wireless
 uci set wireless.default_MT7981_1_1.ssid='hwp'
 uci set wireless.default_MT7981_1_1.encryption='sae-mixed'
@@ -103,5 +109,8 @@ uci set wireless.default_MT7981_1_2.ssid='hwp-5G'
 uci set wireless.default_MT7981_1_2.steeringthresold='-85'
 uci set wireless.default_MT7981_1_2.encryption='sae-mixed'
 uci set wireless.default_MT7981_1_2.key='13595714161'
+uci commit wireless
+
+/etc/init.d/network restart
 
 EOF
